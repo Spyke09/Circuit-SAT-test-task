@@ -192,7 +192,7 @@ private:
     bool answerQ = false; // флаг для понимания был ли получен ответ или нет
 public:
     // конструктор от BaseBoolScheme
-    SimpleSolver(BaseBoolScheme &&bs_) : bs(&bs_), deltaTime(-1), v(std::vector<bool>(bs_.getInputsSize(), 0)), inputs(bs->getInputs()) {}
+    SimpleSolver(std::shared_ptr<BaseBoolScheme> &&bs_) : bs(bs_), deltaTime(-1), v(std::vector<bool>(bs_->getInputsSize(), 0)), inputs(bs->getInputs()) {}
 
     // функция, запускающая решение задачи выполнимости
     // обычный перебор. Вектор на каждом шагу, преобразуется так, что в результате будут перебраны все варианты
@@ -553,10 +553,10 @@ int main(int argc, char *argv[]) {
     }
 
     std::string fileName = argv[1];
-    AdvancedBoolScheme bs(fileName);
+    auto bs = std::make_shared<AdvancedBoolScheme>(fileName);
 
     if (argc == 3 && static_cast<std::string>(argv[2]) == "-s") {
-        SimpleSolver solver(std::move(bs));
+        SimpleSolver solver(bs);
         solver.solve();
         solver.printResults();
     }
