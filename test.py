@@ -54,5 +54,6 @@ def calculate(mypath):
 
 
 if __name__ == '__main__':
+    # сюда нужно подавать на вход корневую директорию проекта
     # "D:/Programming/C++/Boolean-Schemes-Test"
-    calculate("D:/Programming/C++/Boolean-Schemes-Test")
+    calculate(input())
