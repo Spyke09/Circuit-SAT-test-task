@@ -1,5 +1,4 @@
 import os
-from os import walk
 
 
 def get_percent(name1, name2):
@@ -36,15 +35,16 @@ def writeresults(l, file_name):
 
 def calculate(mypath):
     l = []
-    for (dirpath, dirnames, filenames) in walk(mypath + "/data"):
+    for (dirpath, dirnames, filenames) in os.walk(mypath + "/data"):
         l.extend(filenames)
         break
-
+    
     res = []
+
     for j, i in enumerate(l):
         file_name = f"{mypath}/data/{i}"
         s_file_name = get_simplified_name(file_name)
-        command = mypath + f'/src/main.exe "{file_name}"'
+        command = mypath + f'/src/build/main.exe "{file_name}"'
         os.system(command)
         per = str(get_percent(file_name, s_file_name))
         res.append(f"{i:20}" + ": Simplified by " + per + "%\n")
@@ -54,5 +54,5 @@ def calculate(mypath):
 
 
 if __name__ == '__main__':
-    # "D:/Programming/C++/Cpp-Practice/boolean_schemes"
-    calculate(input())
+    # "D:/Programming/C++/Boolean-Schemes-Test"
+    calculate("D:/Programming/C++/Boolean-Schemes-Test")

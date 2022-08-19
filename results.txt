@@ -8,29 +8,29 @@
 4300_4.bench        : Simplified by 0%
 5_6.bench           : Simplified by 0%
 6700_4.bench        : Simplified by 0%
-72_4.bench          : Simplified by 2%
-96_4_sat.bench      : Simplified by 1%
+72_4.bench          : Simplified by 4%
+96_4_sat.bench      : Simplified by 2%
 9900_4.bench        : Simplified by 0%
 brock200_4_sat.bench: Simplified by 0%
-BvP_4_3-aigmiter.bench: Simplified by 14%
-BvP_4_4-aigmiter.bench: Simplified by 17%
+BvP_4_3-aigmiter.bench: Simplified by 16%
+BvP_4_4-aigmiter.bench: Simplified by 18%
 BvP_7_4-aigmiter.bench: Simplified by 15%
-BvS_3_3-aigmiter.bench: Simplified by 21%
-BvS_6_4-aigmiter.bench: Simplified by 16%
+BvS_3_3-aigmiter.bench: Simplified by 23%
+BvS_6_4-aigmiter.bench: Simplified by 17%
 BvS_9_4-aigmiter.bench: Simplified by 18%
 c-fat500-2_sat.bench: Simplified by 0%
 CliqueColoring_NW_3.bench: Simplified by 0%
 hamming10-2_sat.bench: Simplified by 0%
-logVn_10.bench      : Simplified by 4%
-logVn_12.bench      : Simplified by 2%
-logVn_14.bench      : Simplified by 2%
+logVn_10.bench      : Simplified by 7%
+logVn_12.bench      : Simplified by 4%
+logVn_14.bench      : Simplified by 3%
 logVn_16.bench      : Simplified by 1%
 logVn_18.bench      : Simplified by 1%
 logVn_2.bench       : Simplified by 30%
 logVn_20.bench      : Simplified by 1%
 logVn_4.bench       : Simplified by 43%
-logVn_6.bench       : Simplified by 18%
-logVn_8.bench       : Simplified by 8%
+logVn_6.bench       : Simplified by 26%
+logVn_8.bench       : Simplified by 12%
 miter_123.bench     : Simplified by 0%
 miter_129.bench     : Simplified by 0%
 miter_16.bench      : Simplified by 0%
@@ -48,14 +48,14 @@ miter_85.bench      : Simplified by 0%
 miter_91.bench      : Simplified by 0%
 miter_identity_php_10_31_3.bench: Simplified by 0%
 miter_identity_php_11_23_2.bench: Simplified by 0%
-miter_identity_php_12_13_1.bench: Simplified by 0%
+miter_identity_php_12_13_1.bench: Simplified by 1%
 miter_identity_php_13_14_1.bench: Simplified by 0%
 miter_identity_php_14_15_1.bench: Simplified by 0%
 miter_identity_php_23_24_1.bench: Simplified by 0%
 miter_identity_php_24_25_1.bench: Simplified by 0%
 miter_identity_php_3_4.bench: Simplified by 18%
-miter_identity_php_6_19_3.bench: Simplified by 0%
-miter_identity_php_8_9.bench: Simplified by 2%
+miter_identity_php_6_19_3.bench: Simplified by 1%
+miter_identity_php_8_9.bench: Simplified by 4%
 MOD3_18_hard_sat.bench: Simplified by 3%
 MOD3_1_hard_sat.bench: Simplified by 2%
 MOD3_36.bench       : Simplified by 3%
@@ -65,11 +65,11 @@ MOD3_6.bench        : Simplified by 3%
 MOD3_77_sat.bench   : Simplified by 3%
 MOD3_low_density_1_sat.bench: Simplified by 5%
 MOD3_NW_4.bench     : Simplified by 0%
-paley_13.bench      : Simplified by 1%
-PvS_4_3-aigmiter.bench: Simplified by 15%
+paley_13.bench      : Simplified by 3%
+PvS_4_3-aigmiter.bench: Simplified by 17%
 PvS_7_4-aigmiter.bench: Simplified by 17%
 p_hat300-2_sat.bench: Simplified by 0%
-reg_11_6.bench      : Simplified by 2%
+reg_11_6.bench      : Simplified by 3%
 simple_reg_240_6.bench: Simplified by 0%
 thr2_10000.bench    : Simplified by 0%
 thr2_2000.bench     : Simplified by 0%
@@ -78,17 +78,17 @@ thr2_500.bench      : Simplified by 0%
 thr2_5000.bench     : Simplified by 0%
 thr2_6000.bench     : Simplified by 0%
 thr2_8000.bench     : Simplified by 0%
-trVlog_10.bench     : Simplified by 10%
-trVlog_12.bench     : Simplified by 9%
+trVlog_10.bench     : Simplified by 12%
+trVlog_12.bench     : Simplified by 10%
 trVlog_14.bench     : Simplified by 8%
 trVlog_16.bench     : Simplified by 8%
 trVlog_18.bench     : Simplified by 8%
 trVlog_2.bench      : Simplified by 26%
 trVlog_20.bench     : Simplified by 8%
 trVlog_4.bench      : Simplified by 20%
-trVlog_6.bench      : Simplified by 17%
-trVlog_8.bench      : Simplified by 12%
-trVn_10.bench       : Simplified by 9%
+trVlog_6.bench      : Simplified by 21%
+trVlog_8.bench      : Simplified by 15%
+trVn_10.bench       : Simplified by 10%
 trVn_12.bench       : Simplified by 9%
 trVn_14.bench       : Simplified by 8%
 trVn_16.bench       : Simplified by 8%
@@ -96,5 +96,5 @@ trVn_18.bench       : Simplified by 8%
 trVn_2.bench        : Simplified by 26%
 trVn_20.bench       : Simplified by 8%
 trVn_4.bench        : Simplified by 20%
-trVn_6.bench        : Simplified by 15%
-trVn_8.bench        : Simplified by 11%
+trVn_6.bench        : Simplified by 19%
+trVn_8.bench        : Simplified by 12%
