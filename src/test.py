@@ -1,7 +1,6 @@
 import os
 from os import walk
-from re import I
-from tkinter import W
+
 
 def get_percent(name1, name2):
     i1, i2 = 0, 0
@@ -35,8 +34,7 @@ def writeresults(l, file_name):
         f1.writelines(l)
 
 
-def calculate():
-    mypath = "D:/Programming/C++/Cpp-Practice/boolean_schemes"
+def calculate(mypath):
     l = []
     for (dirpath, dirnames, filenames) in walk(mypath + "/data"):
         l.extend(filenames)
@@ -55,5 +53,6 @@ def calculate():
     writeresults(res, "results.txt")
 
 
-
-calculate()
+if __name__ == '__main__':
+    # "D:/Programming/C++/Cpp-Practice/boolean_schemes"
+    calculate(input())

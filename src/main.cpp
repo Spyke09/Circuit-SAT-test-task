@@ -10,6 +10,7 @@
 #include <chrono>
 #include <memory>
 #include <utility> 
+#include <cerrno>
 
 /*
     Здесь реализованы:
@@ -549,7 +550,7 @@ public:
 int main(int argc, char *argv[]) {
     if (argc != 3 && argc != 2) {
         std::cout << "There should be one or two arguments here\n";
-        return 0;
+        return EINVAL;
     }
 
     std::string fileName = argv[1];
@@ -561,5 +562,3 @@ int main(int argc, char *argv[]) {
         solver.printResults();
     }
 }
-
-
