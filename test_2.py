@@ -31,7 +31,6 @@ def calculate(mypath):
         print("Time for simplified (microseconds)")
         os.system(command2)
         
-        print(f"{(j + 1) * 100 // len(l)}% complete")
 
 
 
