@@ -44,7 +44,7 @@ def calculate(mypath):
     for j, i in enumerate(l):
         file_name = f"{mypath}/data/{i}"
         s_file_name = get_simplified_name(file_name)
-        command = mypath + f'/src/build/main.exe "{file_name}"'
+        command = mypath + f'/src/build/main.exe "{file_name}"' + "-s"
         os.system(command)
         per = str(get_percent(file_name, s_file_name))
         res.append(f"{i:20}" + ": Simplified by " + per + "%\n")

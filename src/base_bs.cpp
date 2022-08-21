@@ -5,6 +5,7 @@
 // для функции func(var2, var3) выдаст вектор {"func", "var1", "var2"}
 std::vector<std::string> BaseBoolScheme::parseFuncArgs(const std::string &st) const noexcept{
     std::vector<std::string> result;
+    result.reserve(2);
     size_t lbracket = st.find('('), rbracket = st.find(')');
     std::string name = st.substr(0, lbracket);
     result.push_back(name);
@@ -41,7 +42,7 @@ void BaseBoolScheme::parseFile(const std::string &filename) {
     std::string buff;
     fin = std::ifstream(filename);
     if (!fin) {
-        throw MyException("File not found");
+        throw MyException("File " + filename + " not found");
     }
     bool endinput = false, endoutput = false;
     while(std::getline (fin, buff)) {

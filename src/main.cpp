@@ -20,17 +20,23 @@
 */
 
 int main(int argc, char *argv[]) {
-    if (argc != 3 && argc != 2) {
-        std::cout << "There should be one or two arguments here\n";
-        return EINVAL;
-    }
-
-    std::string fileName = argv[1];
-    auto bs = std::make_shared<AdvancedBoolScheme>(fileName);
-
-    if (argc == 3 && static_cast<std::string>(argv[2]) == "-s") {
+    if (argc == 2) { // solve
+        std::string fileName = argv[1];
+        auto bs = std::make_shared<BaseBoolScheme>(fileName);
         SimpleSolver solver(bs);
         solver.solve();
         solver.printResults();
+    } else if (argc == 3 && static_cast<std::string>(argv[2]) == "-s") { // -s == simplify
+        std::string fileName = argv[1];
+        auto bs = std::make_shared<AdvancedBoolScheme>(fileName);
+    } else if (argc == 3 && static_cast<std::string>(argv[2]) == "-ss") { // -ss == simplify and solve
+        std::string fileName = argv[1];
+        auto bs = std::make_shared<AdvancedBoolScheme>(fileName);
+        SimpleSolver solver(bs);
+        solver.solve();
+        solver.printResults();
+    } else {
+        std::cout << "Invalid arguments\n";
+        return EINVAL;
     }
 }

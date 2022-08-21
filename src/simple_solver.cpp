@@ -22,7 +22,7 @@ std::vector<bool> SimpleSolver::solve() {
         }
     }
     auto timeFinish = std::chrono::high_resolution_clock::now();
-    deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(timeFinish - timeStart).count();
+    deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(timeFinish - timeStart).count();
     return v;
 }
 
@@ -37,16 +37,17 @@ std::unordered_map<std::string, bool> SimpleSolver::getAnswer() {
 
 // функция печати результатов после работы метода solve()
 void SimpleSolver::printResults() {
-    std::cout << "Time: " << deltaTime << " ms\n";
-    if (!answerQ) {
-        std::cout << "No solution\n";
-    } else {
-        std::cout << "Answer: ";
-        for (size_t i = 0; i < v.size(); ++i) {
-            std::cout << "'" << inputs[i] << "' = " << v[i] << ((i < v.size() - 1) ? ", " : ".");
-        }
-        std::cout << "\n";
-    }
+    std::cout << deltaTime << "\n";
+    // std::cout << "Time: " << deltaTime << " microseconds\n";
+    // if (!answerQ) {
+    //     std::cout << "No solution\n";
+    // } else {
+    //     std::cout << "Answer: ";
+    //     for (size_t i = 0; i < v.size(); ++i) {
+    //         std::cout << "'" << inputs[i] << "' = " << v[i] << ((i < v.size() - 1) ? ", " : ".");
+    //     }
+    //     std::cout << "\n";
+    // }
     
 }
 
