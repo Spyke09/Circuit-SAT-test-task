@@ -38,17 +38,17 @@ std::unordered_map<std::string, bool> SimpleSolver::getAnswer() {
 
 // функция печати результатов после работы метода solve()
 void SimpleSolver::printResults() {
-    std::cout << deltaTime << "\n";
-    // std::cout << "Time: " << deltaTime << " microseconds\n";
-    // if (!answerQ) {
-    //     std::cout << "No solution\n";
-    // } else {
-    //     std::cout << "Answer: ";
-    //     for (size_t i = 0; i < v.size(); ++i) {
-    //         std::cout << "'" << inputs[i] << "' = " << v[i] << ((i < v.size() - 1) ? ", " : ".");
-    //     }
-    //     std::cout << "\n";
-    // }
+    // std::cout << deltaTime << "\n";
+    std::cout << "Time: " << deltaTime << " microseconds\n";
+    if (!answerQ) {
+        std::cout << "No solution\n";
+    } else {
+        std::cout << "Answer: ";
+        for (size_t i = 0; i < v.size(); ++i) {
+            std::cout << "'" << inputs[i] << "' = " << v[i] << ((i < v.size() - 1) ? ", " : ".");
+        }
+        std::cout << "\n";
+    }
     
 }
 
