@@ -12,6 +12,7 @@ std::vector<bool> SimpleSolver::solve() {
     auto timeStart = std::chrono::high_resolution_clock::now();
     while(true) {
         bool t = bs->calculate(v);
+        
         if (t) {
             answerQ = true;
             break;

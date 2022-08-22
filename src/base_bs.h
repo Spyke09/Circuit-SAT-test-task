@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 #include "my_exeption.h"
+#include <iostream>
+#include <algorithm>
 
 // Базовый класс, содержащий конкретную булеву схему
 struct BaseBoolScheme {

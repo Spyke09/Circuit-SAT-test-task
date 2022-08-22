@@ -16,7 +16,7 @@ struct AdvancedBoolScheme final : BaseBoolScheme {
 private:
     // дерево для хранения узлов с операциями и аргументами
     struct Tree;
-
+    
     void deleteRepetition(Tree &tree);
     
     struct Tree {
@@ -47,7 +47,7 @@ private:
         };
 
         // функция заполнения дерева из переменной BaseBoolScheme::vars
-        void fillFromVars(const std::vector<std::pair<std::string, std::vector<std::string>>> &v);
+        void fillFromVars(const AdvancedBoolScheme &bs);
 
         // функция, выдающая количество аргументов данного узла, как функции, или ноль, если это лист
         static int getOperNumber(std::shared_ptr<Tree::Node> node);

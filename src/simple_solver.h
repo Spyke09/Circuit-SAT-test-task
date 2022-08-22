@@ -12,7 +12,7 @@
 // класс, решающий задачу выполнимости
 struct SimpleSolver {
 private:
-    std::shared_ptr<BaseBoolScheme> bs; // константная ссылка на класс BaseBoolScheme. bs не будет изменен внутри из-за константности
+    std::shared_ptr<BaseBoolScheme> bs; // ссылка на класс BaseBoolScheme
     long long deltaTime; // время выполнения решения задачи выполнимости
     std::vector<bool> v; // вектор аргументов типа bool для поиска нужных аргументов
     std::vector<std::string> inputs; // входные переменные

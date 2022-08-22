@@ -15,6 +15,9 @@ AdvancedBoolScheme::Tree::TreeStackIterator::TreeStackIterator(Tree &tree) {
 std::shared_ptr<AdvancedBoolScheme::Tree::Node> AdvancedBoolScheme::Tree::TreeStackIterator::next() {
     std::shared_ptr<AdvancedBoolScheme::Tree::Node> cur = stack.top();
     stack.pop();
+    if (getOperNumber(cur) == 0) {
+        return cur;
+    }
     if (cur->first != nullptr) {
         stack.push(cur->first);
     }
@@ -29,11 +32,11 @@ bool AdvancedBoolScheme::Tree::TreeStackIterator::hasNext() const {
 }
 
 // функция заполнения дерева из переменной BaseBoolScheme::vars
-void AdvancedBoolScheme::Tree::fillFromVars(const std::vector<std::pair<std::string, std::vector<std::string>>> &v) {
+void AdvancedBoolScheme::Tree::fillFromVars(const AdvancedBoolScheme &bs) {
     std::unordered_map<std::string, std::vector<std::string>> map;
-    std::copy(v.begin(), v.end(), std::inserter(map, map.begin()));
+    std::copy(bs.vars.begin(), bs.vars.end(), std::inserter(map, map.begin()));
     std::stack<std::shared_ptr<Node>> stack;
-    auto curr = v[v.size() - 1];
+    auto curr = bs.vars[bs.vars.size() - 1];
     root = std::make_shared<Node>(curr.first);
     stack.push(root);
     while (!stack.empty()) {
@@ -71,7 +74,7 @@ bool AdvancedBoolScheme::Tree::compareNodes(std::shared_ptr<Tree::Node> first, s
     int t = 0;
     while(iter1.hasNext() && iter2.hasNext()) {
         ++t;
-        if (t > 100) {
+        if (t > 30) {
             return 0;
         }
         auto i1 = iter1.next();
@@ -80,9 +83,9 @@ bool AdvancedBoolScheme::Tree::compareNodes(std::shared_ptr<Tree::Node> first, s
         if (num1 != num2) return 0;
         if (i1->operationName != i2->operationName) return 0;
         if (num1 == 0 && i1->name != i2->name) return 0;
-        
     }
-    return 1;
+    // if (flag) std::cout << first->name << " " << second->name << " " << t << "\n";
+    return !(iter1.hasNext() || iter2.hasNext());
 }
 
 
@@ -101,42 +104,55 @@ void AdvancedBoolScheme::deleteRepetition(Tree &tree) {
         return;
     }
     while(true) {
-        bool b = false;
+        bool whileContinue = false;
         for (size_t i = 0; i < v.size(); ++i) {
             auto cur = v[i];
             if (Tree::getOperNumber(cur) == 0) continue;
             for (size_t j = i + 1; j < v.size(); ++j) {
                 auto next = v[j];
                 if (Tree::getOperNumber(next) == 0) continue;
-                if (Tree::getOperNumber(cur) != 0 && Tree::getOperNumber(next) != 0 && Tree::compareNodes(cur, next)) {
+                if (cur->name != next->name && Tree::compareNodes(cur, next)) {
+                    
+                    Tree::TreeStackIterator iter1 = {cur};
+                    Tree::TreeStackIterator iter2 = {next};
+                    std::unordered_map<std::string, std::string> newNodeNames;
+                    newNodeNames[next->name] = cur->name;
+                    while(iter1.hasNext() && iter2.hasNext()) {
+                        auto i1 = iter1.next();
+                        auto i2 = iter2.next();
+                        int num1 = Tree::getOperNumber(i1);
+                        if (num1 == 1 && i1->first->name == i2->first->name) break;
+                        if (num1 == 2 && (i1->first->name == i2->first->name && i1->second->name == i2->second->name)) break;
+                        if (num1 == 2 && (i1->first->name == i2->second->name && i1->second->name == i2->first->name)) break;
+                        if (i1->name != i2->name) {
+                            newNodeNames[i2->name] = i1->name;
+                        }
+                    }
                     
                     std::string oldName = next->name;
                     for (size_t k = 0; k < v.size(); ++k) {
                         auto next2 = v[k];
-                        if (k == i) continue;
-                        if (next2 != nullptr && (next2->name == oldName)) {
-                            next2->name = cur->name;
-                            next2->operationName = "";
+                        if (newNodeNames.find(next2->name) != newNodeNames.end()) {
+                            next2->name = newNodeNames[next2->name];
                         }
                     }
-                    // std::cout << (*cur)->name << " " << (*next)->name << "\n";
-
-                    iter = {tree.root};
-                    v.clear();
-                    while (iter.hasNext()) {
-                        v.push_back(iter.next());
-                    } 
-                    b = true;
+                    whileContinue = true;
                     break;
                 }
             }
-            if (b) break;
+            if (whileContinue) break;
         }
-        if (!b) break;
+        if (!whileContinue) break;
         auto timeFinish = std::chrono::high_resolution_clock::now();
         auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(timeFinish - timeStart).count();
         if (deltaTime > 10'000) {
             break;
+        } else {
+            iter = {tree.root};
+            v.clear();
+            while (iter.hasNext()) {
+                v.push_back(iter.next());
+            } 
         }
     }
 }
@@ -157,7 +173,7 @@ void AdvancedBoolScheme::writeToFile(AdvancedBoolScheme::Tree &t, const std::str
             m.insert({i->name, {i->operationName, j->name, k->name}});
         }
     }
-    
+
     std::ifstream fin = std::ifstream(oldFile);
     std::ofstream fout = std::ofstream(newFile);
     std::string buff;
@@ -193,19 +209,20 @@ void AdvancedBoolScheme::writeToFile(AdvancedBoolScheme::Tree &t, const std::str
                 fout << cur << " = " << m[cur][0] << "(" << m[cur][1] << ")\n";
                 s.pop_back();
                 m.erase(cur);
-            } else if (m.find(m[cur][1]) != m.end()) {
+            } else {
                 s.push_back(m[cur][1]);
             }
         } else if (m[cur].size() == 3) {
-            if (m.find(m[cur][1]) == m.end() && m.find(m[cur][2]) == m.end()) {
+            bool flag1 = m.find(m[cur][1]) == m.end(), flag2 = m.find(m[cur][2]) == m.end();
+            if (flag1 && flag2) {
                 fout  << cur << " = " << m[cur][0] << "(" << m[cur][1] <<  ", " << m[cur][2] << ")\n";
                 s.pop_back();
                 m.erase(cur);
             } else {
-                if (m.find(m[cur][1]) != m.end()) {
+                if (!flag1) {
                     s.push_back(m[cur][1]);
                 }
-                if (m.find(m[cur][2]) != m.end()) {
+                if (!flag2) {
                     s.push_back(m[cur][2]);
                 }
             }
@@ -217,12 +234,12 @@ void AdvancedBoolScheme::writeToFile(AdvancedBoolScheme::Tree &t, const std::str
 // функция упрощения текущей булевы схемы, выдающая название нового файла
 std::string AdvancedBoolScheme::simplification(std::string fileName) {
     Tree tree;
-    tree.fillFromVars(vars);
+    tree.fillFromVars(*this);
     // std::cout << tree;
     deleteRepetition(tree);
     // std::cout << tree;
     int pfff = static_cast<int>(fileName.size()) - 1;
-    for (; pfff >= 0; --pfff) if (fileName[pfff] == '/') break;
+    for (; pfff >= 0; --pfff) if (fileName[pfff] == '/' || fileName[pfff] == '\\') break;
     std::string newFile = fileName.substr(0, pfff) + "/simplified/simplified_" + fileName.substr(pfff + 1, fileName.size() - pfff);
     writeToFile(tree, fileName, newFile);
     return newFile;
